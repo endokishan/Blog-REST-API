@@ -1,0 +1,3 @@
+node_modules
+.vscode
+src/environments/dev.env.ts
