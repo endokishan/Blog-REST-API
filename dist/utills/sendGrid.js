@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SendGrid = void 0;
 const sendGrid = require("@sendgrid/mail");
-const env_1 = require("../environments/env");
+require('dotenv').config();
 class SendGrid {
     static sendGridAPI() {
-        const API = env_1.getEnvironmentVariables().sendGrid_API;
+        const API = process.env.sendGrid_API;
         return API;
     }
     ;

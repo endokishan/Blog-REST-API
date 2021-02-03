@@ -2,8 +2,7 @@ import User from "../models/User";
 import { SendGrid } from "../utills/sendGrid";
 import { Utils } from "../utills/Utills";
 import * as Jwt from 'jsonwebtoken';
-import { getEnvironmentVariables } from "../environments/env";
-import { port } from "..";
+require('dotenv').config()
 
 export class UserController {
     static async signup(req, res, next) {
@@ -102,7 +101,7 @@ export class UserController {
 
         try {
             await Utils.comparePassword({ plainPassword: password, encryptedPassword: user.password });
-            const token = Jwt.sign({ email: user.email, user_id: user._id }, getEnvironmentVariables().jwt_secret, { expiresIn: '120d' });
+            const token = Jwt.sign({ email: user.email, user_id: user._id }, process.env.jwt_secret, { expiresIn: '120d' });
             const data = {
                 token: token,
                 user: user
@@ -169,7 +168,7 @@ export class UserController {
 
     static async updateProfilePic(req, res, next) {
         const userId = req.user.user_id;
-        const file_url = `http://localhost:${port}/${req.file.path}`;
+        const file_url = `https://blogging-rest-api.herokuapp.com/${req.file.path}`;
 
         try {
             const user = await User.findOneAndUpdate({ _id: userId }, { updated_at: new Date(), profile_pic_url: file_url }, { new: true });

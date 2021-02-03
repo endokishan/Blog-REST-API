@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import * as Jwt from 'jsonwebtoken';
-import { getEnvironmentVariables } from "../environments/env";
+require('dotenv').config()
 
 export class GlobalMiddleWare {
     static checkError(req, res, next) {
@@ -18,7 +18,7 @@ export class GlobalMiddleWare {
         const token = authHeader ? authHeader.slice(7, authHeader.length) : null;
         try {
             
-            Jwt.verify(token, getEnvironmentVariables().jwt_secret, ((err: any, decoded: any) => {
+            Jwt.verify(token, process.env.jwt_secret, ((err: any, decoded: any) => {
                 if (err) {
                     next(err);
                 } else if (!decoded) {

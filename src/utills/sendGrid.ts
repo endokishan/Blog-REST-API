@@ -1,8 +1,8 @@
 import * as sendGrid from '@sendgrid/mail';
-import { getEnvironmentVariables } from '../environments/env';
+require('dotenv').config()
 export class SendGrid {
     private static sendGridAPI() {
-        const API = getEnvironmentVariables().sendGrid_API;
+        const API = process.env.sendGrid_API;
         return API;
     };
 

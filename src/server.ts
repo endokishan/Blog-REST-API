@@ -1,9 +1,10 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
-import { getEnvironmentVariables } from "./environments/env";
 import CommentRouter from "./routers/CommentRouter";
 import PostRouter from "./routers/PostRouter";
 import UserRouter from "./routers/UserRouter";
+require('dotenv').config()
+
 
 export class Server {
     public app: express.Application = express();
@@ -26,7 +27,7 @@ export class Server {
     };
 
     connectMongoDB() {
-        mongoose.connect(getEnvironmentVariables().db_url, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }).then(() => {
+        mongoose.connect(process.env.db_url, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }).then(() => {
             console.log("mongodb database is connected");
         });
     };

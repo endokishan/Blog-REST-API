@@ -14,8 +14,7 @@ const User_1 = require("../models/User");
 const sendGrid_1 = require("../utills/sendGrid");
 const Utills_1 = require("../utills/Utills");
 const Jwt = require("jsonwebtoken");
-const env_1 = require("../environments/env");
-const __1 = require("..");
+require('dotenv').config();
 class UserController {
     static signup(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -113,7 +112,7 @@ class UserController {
             const user = req.user;
             try {
                 yield Utills_1.Utils.comparePassword({ plainPassword: password, encryptedPassword: user.password });
-                const token = Jwt.sign({ email: user.email, user_id: user._id }, env_1.getEnvironmentVariables().jwt_secret, { expiresIn: '120d' });
+                const token = Jwt.sign({ email: user.email, user_id: user._id }, process.env.jwt_secret, { expiresIn: '120d' });
                 const data = {
                     token: token,
                     user: user
@@ -196,7 +195,7 @@ class UserController {
     static updateProfilePic(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = req.user.user_id;
-            const file_url = `http://localhost:${__1.port}/${req.file.path}`;
+            const file_url = `https://blogging-rest-api.herokuapp.com/${req.file.path}`;
             try {
                 const user = yield User_1.default.findOneAndUpdate({ _id: userId }, { updated_at: new Date(), profile_pic_url: file_url }, { new: true });
                 res.send(user);

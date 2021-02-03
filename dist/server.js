@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express = require("express");
 const mongoose = require("mongoose");
-const env_1 = require("./environments/env");
 const CommentRouter_1 = require("./routers/CommentRouter");
 const PostRouter_1 = require("./routers/PostRouter");
 const UserRouter_1 = require("./routers/UserRouter");
+require('dotenv').config();
 class Server {
     constructor() {
         this.app = express();
@@ -22,7 +22,7 @@ class Server {
     }
     ;
     connectMongoDB() {
-        mongoose.connect(env_1.getEnvironmentVariables().db_url, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }).then(() => {
+        mongoose.connect(process.env.db_url, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }).then(() => {
             console.log("mongodb database is connected");
         });
     }

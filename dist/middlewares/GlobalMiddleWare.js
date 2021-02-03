@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalMiddleWare = void 0;
 const express_validator_1 = require("express-validator");
 const Jwt = require("jsonwebtoken");
-const env_1 = require("../environments/env");
+require('dotenv').config();
 class GlobalMiddleWare {
     static checkError(req, res, next) {
         const error = express_validator_1.validationResult(req);
@@ -30,7 +30,7 @@ class GlobalMiddleWare {
             const authHeader = req.headers.authorization;
             const token = authHeader ? authHeader.slice(7, authHeader.length) : null;
             try {
-                Jwt.verify(token, env_1.getEnvironmentVariables().jwt_secret, ((err, decoded) => {
+                Jwt.verify(token, process.env.jwt_secret, ((err, decoded) => {
                     if (err) {
                         next(err);
                     }
