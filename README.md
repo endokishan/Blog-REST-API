@@ -1,5 +1,7 @@
 # Blog Website Restful-API using Nodejs + Typescript + Expressjs + Moongoose + JWT
 
+## __Live Link__ :-  <a href="https://blogging-rest-api.herokuapp.com/api/"> <i>click here</i></a> ( deployed on heroku )(endpoint url).
+
 ## Features
 - User Login | Signup
 - Password encrypted through Bcrypt
